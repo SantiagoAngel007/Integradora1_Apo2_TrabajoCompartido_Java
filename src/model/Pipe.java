@@ -10,19 +10,17 @@ public class Pipe {
 	 * @param pipeType
 	 * @param outFallCapacity
 	 */
-	public Pipe(Type pipeType, int outFallCapacity) {
-		// TODO - implement Pipe.Pipe
-		throw new UnsupportedOperationException();
+	public Pipe(Type pipeType, boolean outFallCapacity) {
+		
+		this.pipeType = pipeType;
+
+		this.outFallCapacity = outFallCapacity;
 	}
 
 	public Type getPipeType() {
 		return this.pipeType;
 	}
 
-	/**
-	 * 
-	 * @param pipeType
-	 */
 	public void setPipeType(Type pipeType) {
 		this.pipeType = pipeType;
 	}
@@ -31,10 +29,6 @@ public class Pipe {
 		return this.outFallCapacity;
 	}
 
-	/**
-	 * 
-	 * @param outFallCapacity
-	 */
 	public void setOutFallCapacity(boolean outFallCapacity) {
 		this.outFallCapacity = outFallCapacity;
 	}

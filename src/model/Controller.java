@@ -2,8 +2,8 @@ package model;
 
 public class Controller {
 
-	private Score root;
-	private List<Score> listScores;
+	private User root;
+	//private List<Score> listScores;
 	private Board head;
 	private Board tail;
 
@@ -17,7 +17,7 @@ public class Controller {
 	 * @param score
 	 * @param current
 	 */
-	private void addScore(Score score, Score current) {
+	private void addScore(User score, User current) {
 		// TODO - implement Controller.addScore
 		throw new UnsupportedOperationException();
 	}
@@ -26,7 +26,7 @@ public class Controller {
 	 * 
 	 * @param goal
 	 */
-	public Score searchScore(int goal) {
+	public User searchScore(int goal) {
 		// TODO - implement Controller.searchScore
 		throw new UnsupportedOperationException();
 	}
@@ -36,24 +36,28 @@ public class Controller {
 	 * @param current
 	 * @param target
 	 */
-	private Score searchScore(Score current, int target) {
+	private User searchScore(User current, int target) {
 		// TODO - implement Controller.searchScore
 		throw new UnsupportedOperationException();
 	}
 
+	/* 
 	public List<Score> showScore() {
 		// TODO - implement Controller.showScore
 		throw new UnsupportedOperationException();
 	}
+	*/
 
 	/**
 	 * 
 	 * @param score
 	 */
+	/* 
 	private List<Score> showScore(Score score) {
 		// TODO - implement Controller.showScore
 		throw new UnsupportedOperationException();
 	}
+	*/
 
 	/**
 	 * 

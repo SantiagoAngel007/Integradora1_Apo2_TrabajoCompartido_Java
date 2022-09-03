@@ -16,8 +16,11 @@ public class Board {
 	 * @param sewer
 	 */
 	public Board(Pipe font, Pipe sewer) {
-		// TODO - implement Board.Board
-		throw new UnsupportedOperationException();
+		
+		this.font = font;
+
+		this.sewer = sewer;
+
 	}
 
 	public Board getNext() {

@@ -11,9 +11,19 @@ public class Score {
 	 * @param value
 	 */
 	public Score(int value) {
-		// TODO - implement Score.Score
-		throw new UnsupportedOperationException();
+		
+		this.value = value;
+
 	}
+
+
+	public double calculateScore(){
+
+		double points = 0;
+
+		return points;
+	}
+
 
 	public Score getRight() {
 		return this.right;
