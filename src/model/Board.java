@@ -16,8 +16,8 @@ public class Board {
 	private Board previous;
 
 	//Pipes
-	private Pipe font;
-	private Pipe sewer;
+	public  Pipe font;
+	public Pipe sewer;
 	private Pipe pipe;
 
 
@@ -107,6 +107,16 @@ public class Board {
 
 	public int getColumn(){
 		return column;
+	}
+
+
+	public Pipe getPipe(){
+		return pipe;
+	}
+
+
+	public void setPipe(Pipe pipe){
+		this.pipe = pipe;
 	}
 
 }

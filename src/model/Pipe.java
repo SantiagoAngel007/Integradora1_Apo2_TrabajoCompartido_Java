@@ -10,6 +10,7 @@ public class Pipe {
 	 * @param pipeType
 	 * @param outFallCapacity
 	 */
+	
 	public Pipe(Type pipeType, boolean outFallCapacity) {
 		
 		this.pipeType = pipeType;

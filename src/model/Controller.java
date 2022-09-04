@@ -1,11 +1,14 @@
 package model;
 
+
+
 public class Controller {
 
 	private User root;
 	//private List<Score> listScores;
 	private Board head;
 	private Board tail;
+	private Board anterior;
 	
 
 
@@ -17,9 +20,9 @@ public class Controller {
 
 		createBoard();
 
-		//fill();
-
 		search();
+
+		ubicateFontSewer();
 
 		//print();
 
@@ -49,6 +52,7 @@ public class Controller {
 					box.setPrevious(this.tail);
 					this.tail = box;
 					num++;
+					//System.out.println(box.getIndicator());
 				}
 			}
 		}
@@ -128,6 +132,80 @@ public class Controller {
 		}
 
 	}
+
+
+
+
+	public void ubicateFontSewer(){
+
+		anterior = new Board(0, 0, 0, null);
+
+		anterior.setNext(head);
+
+		Pipe font = new Pipe(Type.FONT_PIPE, true);
+
+		Pipe sewer = new Pipe(Type.SEWER_PIPE, true);
+
+		int randomNum = (int)(Math.random()*(8)+1);
+
+		int randomNum2 = (int)(Math.random()*(8)+1);
+
+		int randomNum3 = (int)(Math.random()*(8)+1);
+
+		int randomNum4 = (int)(Math.random()*(8)+1);
+		
+		while(randomNum == randomNum3 || randomNum == randomNum4 && randomNum2 == randomNum3 || randomNum2 == randomNum4){
+
+			randomNum3 = (int)(Math.random()*(8)+1);
+
+			randomNum4 = (int)(Math.random()*(8)+1);
+
+		}
+		
+		Board pointer = anterior;
+
+		Board pointer2 = anterior;
+
+		System.out.println(randomNum);
+		System.out.println(randomNum2);
+
+		for(int i=1;i<=randomNum;i++){
+			for(int j=1;j<=randomNum2;j++){	
+
+				pointer = pointer.getNext();
+				
+
+				if(i == randomNum && j == randomNum2){
+					pointer.setPipe(font);
+					System.out.println(pointer.getIndicator());
+				}
+			}
+		}
+
+		System.out.println(pointer.getPipe());
+		System.out.println(pointer.getNext().getPipe());
+
+		System.out.println(randomNum3);
+		System.out.println(randomNum4);
+
+		for(int i=1;i<=randomNum3;i++){
+			for(int j=1;j<=randomNum4;j++){	
+
+				pointer2 = pointer2.getNext();
+
+
+				if(i == randomNum3 && j == randomNum4){
+					pointer.setPipe(sewer);
+					System.out.println(pointer2.getIndicator());
+				}
+			}
+		}
+	}
+
+
+
+
+
 
 
 	public Board fill(){
