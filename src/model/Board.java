@@ -3,15 +3,22 @@ package model;
 public class Board {
 
 	Controller boxes;
+
+	//Ints
 	private int column;
 	private int row;
 	private int indicator;
+
+	//Board
 	private Board next;
 	private Board above;
 	private Board under;
 	private Board previous;
+
+	//Pipes
 	private Pipe font;
 	private Pipe sewer;
+	private Pipe pipe;
 
 
 	/**
@@ -19,7 +26,7 @@ public class Board {
 	 * @param font
 	 * @param sewer
 	 */
-	public Board(int indicator, int row, int column) {
+	public Board(int indicator, int row, int column, Pipe pipe) {
 
 		this.indicator = indicator;
 

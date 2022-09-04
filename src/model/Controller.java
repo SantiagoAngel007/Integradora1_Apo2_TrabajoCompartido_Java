@@ -17,6 +17,8 @@ public class Controller {
 
 		createBoard();
 
+		//fill();
+
 		search();
 
 		//print();
@@ -36,13 +38,13 @@ public class Controller {
 
 				
 				if(head == null){
-					head = new Board(num,i,j);
+					head = new Board(num,i,j, null);
 					tail = head;
 					
 					num++;
 				}
 				else{
-					Board box = new Board(num, i, j);
+					Board box = new Board(num, i, j, null);
 					this.tail.setNext(box);
 					box.setPrevious(this.tail);
 					this.tail = box;
@@ -58,7 +60,7 @@ public class Controller {
 	
 	public void search(){
 		
-		Board anterior = new Board(0, 0, 0);
+		Board anterior = new Board(0, 0, 0, null);
 
 		head.setPrevious(anterior);
 
@@ -66,52 +68,60 @@ public class Controller {
 
 		Board current = head;
 
-		Board actual =  head;
+		Board actual =  anterior;
 
 		
 		for(int i=1;i<=8;i++){
 			for(int j=1;j<=8;j++){	
 
 				actual = actual.getNext();
-
 				
 
 				if(i == 2){
 					actual.setAbove(current);
 					current.setUnder(actual);
-					System.out.println("Indicador de current " + (current.getUnder()).getIndicator());
+					//System.out.println("Indicador de current under " + (current.getUnder()).getIndicator());
 					current = current.getNext();
-					System.out.println("Indicador de actual " + (actual.getAbove()).getIndicator());
+					//System.out.println("Indicador de actual above " + (actual.getAbove()).getIndicator());
 					
 				}
-
-		
-				/*else if(i == 3){
+				else if(i == 3){
 					actual.setAbove(current);
 					current.setUnder(actual);
+					//System.out.println("Indicador de current under " + (current.getUnder()).getIndicator());
 					current = current.getNext();
+					//System.out.println("Indicador de actual above " + (actual.getAbove()).getIndicator());
 				}else if(i == 4){
 					actual.setAbove(current);
 					current.setUnder(actual);
+					//System.out.println("Indicador de current under " + (current.getUnder()).getIndicator());
 					current = current.getNext();
+					//System.out.println("Indicador de actual above " + (actual.getAbove()).getIndicator());
 				}else if(i == 5){
 					actual.setAbove(current);
 					current.setUnder(actual);
+					//System.out.println("Indicador de current under " + (current.getUnder()).getIndicator());
 					current = current.getNext();
+					//System.out.println("Indicador de actual above " + (actual.getAbove()).getIndicator());
 				}else if(i == 6){
 					actual.setAbove(current);
 					current.setUnder(actual);
+					//System.out.println("Indicador de current under " + (current.getUnder()).getIndicator());
 					current = current.getNext();
+					//System.out.println("Indicador de actual above " + (actual.getAbove()).getIndicator());
 				}else if(i == 7){
 					actual.setAbove(current);
 					current.setUnder(actual);
+					//System.out.println("Indicador de current under " + (current.getUnder()).getIndicator());
 					current = current.getNext();
-				}else if(i == 8 && current.getNext() != null){
+					//System.out.println("Indicador de actual above " + (actual.getAbove()).getIndicator());
+				}else if(i == 8 && current.getNext() != null && actual != null){
 					actual.setAbove(current);
 					current.setUnder(actual);
+					//System.out.println("Indicador de current under " + (current.getUnder()).getIndicator());
 					current = current.getNext();
+					//System.out.println("Indicador de actual above " + (actual.getAbove()).getIndicator());
 				}
-				*/
 				
 			}
 	
@@ -121,22 +131,29 @@ public class Controller {
 
 
 	public Board fill(){
-		Board actual = null;
-		return fill(head, actual);
+		Board actual = head;
+		return fill(head, head);
 	  }
 	
 	  private Board fill(Board current, Board actual){
-		actual = head;
+		
+
 		if(current.getUnder() == null ){
-			for(int i=1;i<=9;i++){
+			for(int i=1;i<=8;i++){
 				actual = actual.getNext();
 			}
 		  return fill(current, actual);
 		}
+
+		if(actual.getNext() != null){
+			actual.setAbove(current);
+			current.setUnder(actual);
+
+			return fill(current.getNext(), actual.getNext());
+		}
+
+		return current;
 		
-		actual.setAbove(current);
-		current.setUnder(actual);
-		return fill(current.getNext(), actual.getNext());
 	  }
 
 
