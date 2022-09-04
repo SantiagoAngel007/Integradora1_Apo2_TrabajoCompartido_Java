@@ -3,6 +3,9 @@ package model;
 public class Board {
 
 	Controller boxes;
+	private int column;
+	private int row;
+	private int indicator;
 	private Board next;
 	private Board above;
 	private Board under;
@@ -10,21 +13,24 @@ public class Board {
 	private Pipe font;
 	private Pipe sewer;
 
+
 	/**
 	 * 
 	 * @param font
 	 * @param sewer
 	 */
-	public Board(Pipe font, Pipe sewer) {
-		
-		this.font = font;
+	public Board(int indicator, int row, int column) {
 
-		this.sewer = sewer;
+		this.indicator = indicator;
+
+		this.row = row;
+
+		this.column = column;
 
 	}
 
 	public Board getNext() {
-		return this.next;
+		return next;
 	}
 
 	/**
@@ -69,6 +75,31 @@ public class Board {
 	 */
 	public void setPrevious(Board previous) {
 		this.previous = previous;
+	}
+
+
+	 
+	public int getIndicator() {
+		return this.indicator;
+	}
+
+	/**
+	 * 
+	 * @param previous
+	 */
+	
+	public void setIndicator(int indicator) {
+		this.indicator = indicator;
+	}
+
+
+	public int getRow(){
+		return row;
+	}
+	
+
+	public int getColumn(){
+		return column;
 	}
 
 }

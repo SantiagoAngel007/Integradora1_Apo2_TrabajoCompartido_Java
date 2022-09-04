@@ -6,11 +6,231 @@ public class Controller {
 	//private List<Score> listScores;
 	private Board head;
 	private Board tail;
+	
 
-	public void addScore() {
-		// TODO - implement Controller.addScore
-		throw new UnsupportedOperationException();
+
+
+	
+	public void startGame(){
+
+		long startTime = System.nanoTime();
+
+		createBoard();
+
+		search();
+
+		//print();
+
+		
+
 	}
+
+
+
+	public void createBoard(){
+
+		int num = 1;
+
+		for(int i=1;i<=8;i++){
+			for(int j=1;j<=8;j++){
+
+				
+				if(head == null){
+					head = new Board(num,i,j);
+					tail = head;
+					
+					num++;
+				}
+				else{
+					Board box = new Board(num, i, j);
+					this.tail.setNext(box);
+					box.setPrevious(this.tail);
+					this.tail = box;
+					num++;
+				}
+			}
+		}
+	}
+
+
+
+	
+	
+	public void search(){
+
+		Board current =  null;
+
+		Board actual = head;
+		current = actual.getNext();
+
+
+		
+		for(int i=1;i<=8;i++){
+			for(int j=1;j<=8;j++){	
+
+
+
+				current.getNext();
+				System.out.println(actual.getIndicator()); 
+
+				/* 
+
+				if(i == 2){
+					actual.setAbove(current);
+					current.setUnder(actual);
+					current.getNext();
+				}
+				*/
+
+					/* 
+				}else if(i == 3){
+					actual.setAbove(current);
+					current.setUnder(actual);
+					current.getNext();
+				}else if(i == 4){
+					actual.setAbove(current);
+					current.setUnder(actual);
+					current.getNext();
+				}else if(i == 5){
+					actual.setAbove(current);
+					current.setUnder(actual);
+					current.getNext();
+				}else if(i == 6){
+					actual.setAbove(current);
+					current.setUnder(actual);
+					current.getNext();
+				}else if(i == 7){
+					actual.setAbove(current);
+					current.setUnder(actual);
+					current.getNext();
+				}else if(i == 8){
+					actual.setAbove(current);
+					current.setUnder(actual);
+					current.getNext();
+				}
+				*/
+			}
+	
+		}
+
+	}
+
+
+
+	  
+	  
+
+
+
+
+
+	public void print(){
+		print(head);
+	  }
+	
+	  private void print(Board current){
+		if(current == null){
+		  return; 
+		}
+		System.out.println(current.getIndicator());
+		print(current.getNext());
+	  }
+
+
+
+
+
+
+
+
+
+
+
+
+	  /* 
+	public void createBoard(){
+
+		for(int i=1;i<=8;i++){
+			if(head == null){
+				head = new Board(i,1 ,1 );
+				tail = head;
+				System.out.println(i);
+			}else{
+				Board box = new Board(i, 1, 1);
+				this.tail.setNext(box);
+      			box.setPrevious(this.tail);
+      			this.tail = box;
+				  System.out.println(i);
+			}
+		}
+
+		
+
+	}
+	*/
+
+
+
+
+
+
+
+
+
+
+	/* 
+	public void createBoard(){
+		int identificator = 1;
+
+
+		while(identificator<64){
+			
+			if (head == null){
+				this.head = new Board(identificator);
+				this.tail = new Board(identificator);
+				identificator++;
+
+				System.out.println("hola");
+				
+			}
+			else {
+				Board box = new Board(identificator);
+				this.tail.setNext(box);
+				box.setPrevious(this.tail);
+				this.tail = box;
+				identificator++;
+
+				System.out.println("xd");
+			}
+		}
+	}
+	*/
+
+
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 	/**
 	 * 
@@ -18,7 +238,7 @@ public class Controller {
 	 * @param current
 	 */
 	private void addScore(User score, User current) {
-		// TODO - implement Controller.addScore
+		
 		throw new UnsupportedOperationException();
 	}
 
@@ -98,9 +318,8 @@ public class Controller {
 	 * 
 	 * @param board
 	 */
-	public String simulate(Board board) {
-		// TODO - implement Controller.simulate
-		throw new UnsupportedOperationException();
+	public void simulate(Board board) {
+		long endTime = System.nanoTime();
 	}
 
 }
