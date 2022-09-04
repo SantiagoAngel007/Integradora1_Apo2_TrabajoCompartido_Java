@@ -9,15 +9,23 @@ public class Board {
 	private Board previous;
 	private Pipe font;
 	private Pipe sewer;
-
+	private Pipe pipe;
+	private int indicator;
+	private int row;
+	private int column;
 	/**
 	 * 
 	 * @param font
 	 * @param sewer
 	 */
-	public Board(Pipe font, Pipe sewer) {
-		// TODO - implement Board.Board
-		throw new UnsupportedOperationException();
+	public Board(int indicator, int row, int column) {
+
+		this.indicator = indicator;
+
+		this.row = row;
+
+		this.column = column;
+
 	}
 
 	public Board getNext() {
@@ -68,4 +76,14 @@ public class Board {
 		this.previous = previous;
 	}
 
+	public int getIndicator(){
+		return this.indicator;
+	}
+
+	public Pipe getPipe(){
+		return this.pipe;
+	}
+	public void setPipe(Pipe pipe){
+		this.pipe = pipe;
+	}
 }

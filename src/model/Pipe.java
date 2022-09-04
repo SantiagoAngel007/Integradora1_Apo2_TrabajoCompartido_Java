@@ -3,16 +3,16 @@ package model;
 public class Pipe {
 
 	private Type pipeType;
-	private boolean outFallCapacity;
+	private boolean isCircular;
 
 	/**
 	 * 
 	 * @param pipeType
 	 * @param outFallCapacity
 	 */
-	public Pipe(Type pipeType, int outFallCapacity) {
-		// TODO - implement Pipe.Pipe
-		throw new UnsupportedOperationException();
+	public Pipe(Type pipeType, boolean isCircular) {
+		this.pipeType = pipeType;
+		this.isCircular = isCircular;
 	}
 
 	public Type getPipeType() {
@@ -27,16 +27,12 @@ public class Pipe {
 		this.pipeType = pipeType;
 	}
 
-	public boolean getOutFallCapacity() {
-		return this.outFallCapacity;
+	public boolean getIsCircular() {
+		return this.isCircular;
 	}
 
-	/**
-	 * 
-	 * @param outFallCapacity
-	 */
-	public void setOutFallCapacity(boolean outFallCapacity) {
-		this.outFallCapacity = outFallCapacity;
+	public void setIscircular(boolean isCircular){
+		this.isCircular =isCircular;
 	}
 
 }

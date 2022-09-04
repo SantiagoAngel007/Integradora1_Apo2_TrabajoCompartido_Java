@@ -76,7 +76,7 @@ public class Main {
 			createGame();
 			break;
 		case 2:
-			searchScore();
+			register();
 			break;
 		
 		default:
@@ -116,7 +116,7 @@ public class Main {
 
 		System.out.println("Please input your nickname");
 		name = sc.nextLine();
-
+        cll.startGame();
 		int optionGame=0;
 
 		do{
@@ -144,8 +144,30 @@ public class Main {
 				);
 
 		int pipe = sc.nextInt();
+        sc.nextLine();
 
-		
+        System.out.println(
+            "Put the row of the box you want to switch the pipe:"
+        );
+        int row = sc.nextInt();
+        sc.nextLine();
+        System.out.println("Know put the column of the box you want to switch:");
+        int column = sc.nextInt();
+        if(row<=8 && column <= 8 && pipe<=3){
+            if(pipe == 1){
+                cll. addPipe("horizontal",false,row,column);
+            }
+
+            if(pipe == 2){
+                cll. addPipe("vertical",false,row,column);
+            }
+            
+            if(pipe == 3){
+                cll. addPipe("circular",true,row,column);
+            }
+        }else{
+            System.out.println("Invalid value :(");
+        }
        
     }
 
@@ -159,8 +181,8 @@ public class Main {
         String name = sc.nextLine();
         System.out.println("score");
         int score = sc.nextInt();
-        cll.addUserScore(score,name);
-        cll.showLeaderBoard();
+        System.out.println(cll.addUserScore(score,name));
+        System.out.println(cll.showLeaderBoard());
     }
 
 
