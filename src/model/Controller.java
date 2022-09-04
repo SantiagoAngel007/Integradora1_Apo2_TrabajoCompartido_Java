@@ -57,58 +57,62 @@ public class Controller {
 	
 	
 	public void search(){
+		
+		Board anterior = new Board(0, 0, 0);
 
-		Board current =  null;
+		head.setPrevious(anterior);
 
-		Board actual = head;
-		current = actual.getNext();
+		anterior.setNext(head);
 
+		Board current = head;
+
+		Board actual =  head;
 
 		
 		for(int i=1;i<=8;i++){
 			for(int j=1;j<=8;j++){	
 
+				actual = actual.getNext();
 
-
-				current.getNext();
-				System.out.println(actual.getIndicator()); 
-
-				/* 
+				
 
 				if(i == 2){
 					actual.setAbove(current);
 					current.setUnder(actual);
-					current.getNext();
+					System.out.println("Indicador de current " + (current.getUnder()).getIndicator());
+					current = current.getNext();
+					System.out.println("Indicador de actual " + (actual.getAbove()).getIndicator());
+					
 				}
-				*/
 
-					/* 
-				}else if(i == 3){
+		
+				/*else if(i == 3){
 					actual.setAbove(current);
 					current.setUnder(actual);
-					current.getNext();
+					current = current.getNext();
 				}else if(i == 4){
 					actual.setAbove(current);
 					current.setUnder(actual);
-					current.getNext();
+					current = current.getNext();
 				}else if(i == 5){
 					actual.setAbove(current);
 					current.setUnder(actual);
-					current.getNext();
+					current = current.getNext();
 				}else if(i == 6){
 					actual.setAbove(current);
 					current.setUnder(actual);
-					current.getNext();
+					current = current.getNext();
 				}else if(i == 7){
 					actual.setAbove(current);
 					current.setUnder(actual);
-					current.getNext();
-				}else if(i == 8){
+					current = current.getNext();
+				}else if(i == 8 && current.getNext() != null){
 					actual.setAbove(current);
 					current.setUnder(actual);
-					current.getNext();
+					current = current.getNext();
 				}
 				*/
+				
 			}
 	
 		}
@@ -116,8 +120,29 @@ public class Controller {
 	}
 
 
+	public Board fill(){
+		Board actual = null;
+		return fill(head, actual);
+	  }
+	
+	  private Board fill(Board current, Board actual){
+		actual = head;
+		if(current.getUnder() == null ){
+			for(int i=1;i<=9;i++){
+				actual = actual.getNext();
+			}
+		  return fill(current, actual);
+		}
+		
+		actual.setAbove(current);
+		current.setUnder(actual);
+		return fill(current.getNext(), actual.getNext());
+	  }
 
-	  
+
+
+
+
 	  
 
 
