@@ -86,4 +86,29 @@ public class Board {
 	public void setPipe(Pipe pipe){
 		this.pipe = pipe;
 	}
+	public String toString(){
+		String out = "";
+		
+		if(pipe != null){
+			if(pipe.getPipeType()== Type.HORIZONTAL_PIPE){
+				out += "[=]";  
+			}
+		
+			if(pipe.getPipeType()== Type.VERTICAL_PIPE){
+				out += "[||]";  
+			}
+			if(pipe.getPipeType()== Type.CIRCULAR_PIPE){
+				out += "[o]";  
+			}
+			if(pipe.getPipeType()== Type.FONT_PIPE){
+				out += "[F]";  
+			}
+			if(pipe.getPipeType()== Type.SEWER_PIPE){
+				out += "[S]";  
+			}
+		}else{
+			out += "[X]";
+		}
+		return out;
+	}
 }

@@ -117,6 +117,7 @@ public class Main {
 		System.out.println("Please input your nickname");
 		name = sc.nextLine();
         cll.startGame();
+		System.out.println(cll.showBoard());
 		int optionGame=0;
 
 		do{

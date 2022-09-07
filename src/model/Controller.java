@@ -251,9 +251,24 @@ public class Controller {
 		throw new UnsupportedOperationException();
 	}
 
-	public void showBoard() {
-		// TODO - implement Controller.showBoard
-		throw new UnsupportedOperationException();
+	public String showBoard() {
+		
+		String out = "";
+		Board current = new Board(0, 0, 0);
+		current.setNext(head);
+		for(int i = 1;i<=8;i++){
+			if(i != 1){
+				out += "\n";
+			}
+			for(int j = 1; j<=8;j++){
+				if(current!= null){
+					current = current.getNext();
+					out += " " + current.toString();
+					
+				}
+			}
+		}
+		return out;
 	}
 
 	/**
