@@ -98,7 +98,7 @@ public class Main {
 			pipeAction();
 			break;
 		case 2:
-			simulateGame();
+			deletePipe();
 			break;
 		
 		default:
@@ -146,16 +146,66 @@ public class Main {
 				);
 
 		int pipe = sc.nextInt();
+        sc.nextLine();
 
-		
+        System.out.println(
+            "Put the row of the box you want to switch the pipe:"
+        );
+        int row = sc.nextInt();
+        sc.nextLine();
+        System.out.println("now put the column of the box you want to switch:");
+        int column = sc.nextInt();
+        if(row<=8 && column <= 8 && pipe<=3){
+            if(pipe == 1){
+                cll. addPipe("horizontal",false,row,column);
+            }
+
+            if(pipe == 2){
+                cll. addPipe("vertical",false,row,column);
+            }
+            
+            if(pipe == 3){
+                cll. addPipe("circular",true,row,column);
+            }
+        }else{
+            System.out.println("Invalid value :(");
+        }
        
     }
 
-	public void simulateGame(){
+	public void deletePipe(){
+
+		System.out.println("Input the row to delete the pipe");
+		int row = sc.nextInt();
+
+		System.out.println("Input the row to delete the pipe");
+		int column = sc.nextInt();
+
+
+		if(row<=8 && column <= 8){
+
+			cll.deletePipeBoard(row, column);
+
+		}else{
+			System.out.println("The input is invalid");
+		}
         
-	
        
     }
+
+
+
+    public void register(){
+        System.out.println("nombre");
+        String name = sc.nextLine();
+        System.out.println("score");
+        int score = sc.nextInt();
+        //System.out.println(cll.addUserScore(score,name));
+       // System.out.println(cll.showLeaderBoard());
+    }
+
+
+	
 
 
    

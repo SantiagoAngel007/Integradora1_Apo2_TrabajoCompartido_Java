@@ -260,6 +260,77 @@ public class Controller {
 
 
 
+	  public void addPipe(String pipe, boolean isCircular, int row, int column) {
+		int indicator = ((row-1)*8)+column;
+		Board node = head;
+		boolean flag = false;
+		Board toAddPipe = null;
+		
+			for(int i = 1;i<=64;i++){
+			
+				if(flag != true){
+					
+					if(node.getIndicator()==indicator){
+						flag = true;
+						toAddPipe = node;
+					}else{
+						node = node.getNext();
+					}
+
+				}
+			}
+			System.out.println(toAddPipe.getIndicator());
+			addPipe(pipe, isCircular, toAddPipe);
+	}
+
+
+
+	public void addPipe(String pipe,boolean isCircular,Board board){
+		Pipe forAdd = null;
+		if(pipe == "vertical" ){
+			Type type = Type.VERTICAL_PIPE;
+			forAdd = new Pipe(type, isCircular);
+		}
+		if(pipe == "horizontal"){
+			Type type = Type.HORIZONTAL_PIPE;
+			forAdd = new Pipe(type, isCircular);
+		}
+		if( pipe == "circular"){
+			Type type = Type.CIRCULAR_PIPE;
+			forAdd = new Pipe(type, isCircular);
+		}
+		System.out.println(forAdd.getPipeType());
+		board.setPipe(forAdd);
+	}
+
+
+
+	public void deletePipeBoard(int row, int column){
+		int indicator = ((row-1)*8)+column;
+		Board node = head;
+		boolean flag = false;
+		
+
+
+		for(int i = 1;i<=64;i++){
+			
+			if(flag != true){
+				
+				if(node.getIndicator()==indicator && node.getPipe() != null){
+					flag = true;
+					node.setPipe(null);
+					System.out.println("The pipe has been deleted");
+				}else{
+					node = node.getNext();
+				}
+
+			}
+		}
+
+
+
+
+	}
 
 
 
@@ -415,10 +486,7 @@ public class Controller {
 	 * @param row
 	 * @param column
 	 */
-	public void deletePipe(int row, int column) {
-		// TODO - implement Controller.deletePipe
-		throw new UnsupportedOperationException();
-	}
+	
 
 	public void showBoard() {
 		// TODO - implement Controller.showBoard

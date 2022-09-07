@@ -3,7 +3,7 @@ package model;
 public class Pipe {
 
 	private Type pipeType;
-	private boolean outFallCapacity;
+	private boolean isCircular;
 
 	/**
 	 * 
@@ -11,11 +11,11 @@ public class Pipe {
 	 * @param outFallCapacity
 	 */
 	
-	public Pipe(Type pipeType, boolean outFallCapacity) {
+	public Pipe(Type pipeType, boolean isCircular) {
 		
 		this.pipeType = pipeType;
 
-		this.outFallCapacity = outFallCapacity;
+		this.isCircular = isCircular;
 	}
 
 	public Type getPipeType() {
@@ -26,12 +26,12 @@ public class Pipe {
 		this.pipeType = pipeType;
 	}
 
-	public boolean getOutFallCapacity() {
-		return this.outFallCapacity;
+	public boolean getisCircular() {
+		return this.isCircular;
 	}
 
-	public void setOutFallCapacity(boolean outFallCapacity) {
-		this.outFallCapacity = outFallCapacity;
+	public void setisCircular(boolean isCircular) {
+		this.isCircular = isCircular;
 	}
 
 }
