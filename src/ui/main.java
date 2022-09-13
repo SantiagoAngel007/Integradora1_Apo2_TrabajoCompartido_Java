@@ -19,6 +19,8 @@ public class Main {
     public static void main(String[] args) {
 
       Main ppal = new Main();
+
+	  ppal.prueba();
       
       System.out.println("");
 		
@@ -34,6 +36,7 @@ public class Main {
 		
 		
 	}
+
 
 
     public int showMenu() {
@@ -56,7 +59,8 @@ public class Main {
 		System.out.println(
 				"Main menu, please pick an option\n" +
 				"(1) Put pipe \n" +
-				"(2) Simulate \n"+
+				"(2) delete pipe \n" +
+				"(3) Simulate \n"+
                 "(0) Leave\n"   
 				);
 		optionGame= sc.nextInt();
@@ -76,7 +80,7 @@ public class Main {
 			createGame();
 			break;
 		case 2:
-			searchScore();
+			System.out.println(cll.showLeaderBoard()); 
 			break;
 		
 		default:
@@ -100,6 +104,9 @@ public class Main {
 		case 2:
 			deletePipe();
 			break;
+		case 3:
+			simulate();
+		break;
 		
 		default:
 			System.out.println("Error, wrong option");
@@ -110,6 +117,14 @@ public class Main {
 	}
 
 
+	public void prueba(){
+
+		cll.addUserScore(45, "Angel");
+
+		cll.addUserScore(55, "Samuel");
+	}
+
+
     public void createGame(){
         
 		String name;
@@ -117,7 +132,11 @@ public class Main {
 		System.out.println("Please input your nickname");
 		name = sc.nextLine();
 
+		cll.addNames(name);
+
 		cll.startGame();
+
+		System.out.println(cll.showBoard());
 
 		int optionGame=0;
 
@@ -130,11 +149,16 @@ public class Main {
         
     }
 
+	public void simulate(){
 
-    public void searchScore(){
-        
-       
-    }
+
+		
+
+
+	}
+
+
+    
 
 	public void pipeAction(){
         
@@ -142,7 +166,7 @@ public class Main {
 				"What kind of pipe would you like to put?\n" +
 				"(1) HORIZONTAL (=) \n" +
 				"(2) VERTICAL (||) \n"+
-                "(0) CIRCULAR (O)\n"   
+                "(3) CIRCULAR (O)\n"   
 				);
 
 		int pipe = sc.nextInt();
@@ -167,6 +191,7 @@ public class Main {
             if(pipe == 3){
                 cll. addPipe("circular",true,row,column);
             }
+			System.out.println(cll.showBoard());
         }else{
             System.out.println("Invalid value :(");
         }
@@ -177,14 +202,17 @@ public class Main {
 
 		System.out.println("Input the row to delete the pipe");
 		int row = sc.nextInt();
+		sc.nextLine();
 
 		System.out.println("Input the row to delete the pipe");
 		int column = sc.nextInt();
+		sc.nextLine();
 
 
 		if(row<=8 && column <= 8){
 
 			cll.deletePipeBoard(row, column);
+			System.out.println(cll.showBoard());
 
 		}else{
 			System.out.println("The input is invalid");

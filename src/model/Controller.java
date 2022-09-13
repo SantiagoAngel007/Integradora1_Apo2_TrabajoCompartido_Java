@@ -1,38 +1,66 @@
 package model;
+import java.util.ArrayList;
+
 
 
 
 public class Controller {
 
+	public static long startTime;
+
+	public static long endTime;
+
+	public static int usedPipes;
+
+	public Board realFont;
+
+	public Board realSewer;
+
+	private ArrayList<User> listScores;
+
+	private ArrayList<String> listNames;
+
 	private User root;
-	//private List<Score> listScores;
 	private Board head;
 	private Board tail;
 	private Board anterior;
 	
+
+	public Controller(){
+
+		this.listScores = new ArrayList<User>();
+
+		this.listNames = new ArrayList<String>();
+
+		listNames.add("Fabio");
+
+	}
 
 
 
 	
 	public void startGame(){
 
-		long startTime = System.nanoTime();
+		startTime = System.nanoTime();
 
-		createBoard();
+		createBoardDouble();
 
-		search();
+		createBoardCuadra();
 
 		ubicateFontSewer();
 
-		//print();
+		showBoard();
 
-		
+	}
 
+	public void addNames(String name){
+
+		listNames.add(name);
 	}
 
 
 
-	public void createBoard(){
+	public void createBoardDouble(){
 
 		int num = 1;
 
@@ -62,7 +90,7 @@ public class Controller {
 
 	
 	
-	public void search(){
+	public void createBoardCuadra(){
 		
 		Board anterior = new Board(0, 0, 0, null);
 
@@ -177,6 +205,7 @@ public class Controller {
 
 				if(i == randomNum && j == randomNum2){
 					pointer.setPipe(font);
+					realFont = pointer;
 					System.out.println(pointer.getIndicator());
 				}
 			}
@@ -195,7 +224,8 @@ public class Controller {
 
 
 				if(i == randomNum3 && j == randomNum4){
-					pointer.setPipe(sewer);
+					pointer2.setPipe(sewer);
+					realSewer = pointer2;
 					System.out.println(pointer2.getIndicator());
 				}
 			}
@@ -235,26 +265,17 @@ public class Controller {
 	  }
 
 
-
-
-
-	  
-
-
-
-
-
 	public void print(){
 		print(head);
-	  }
+	}
 	
-	  private void print(Board current){
+	private void print(Board current){
 		if(current == null){
 		  return; 
 		}
 		System.out.println(current.getIndicator());
 		print(current.getNext());
-	  }
+	}
 
 
 
@@ -273,6 +294,7 @@ public class Controller {
 					if(node.getIndicator()==indicator){
 						flag = true;
 						toAddPipe = node;
+						usedPipes++;
 					}else{
 						node = node.getNext();
 					}
@@ -310,12 +332,14 @@ public class Controller {
 		Board node = head;
 		boolean flag = false;
 		
-
-
 		for(int i = 1;i<=64;i++){
 			
 			if(flag != true){
-				
+
+				if(node.getIndicator()==indicator && node.getPipe() == null){
+					System.out.println("There is no pipe to delete");
+				}
+
 				if(node.getIndicator()==indicator && node.getPipe() != null){
 					flag = true;
 					node.setPipe(null);
@@ -323,82 +347,161 @@ public class Controller {
 				}else{
 					node = node.getNext();
 				}
-
 			}
 		}
-
-
-
-
 	}
 
 
+	//public Board simulate(){
+		
+	//}
 
 
 
 
-
-	  /* 
-	public void createBoard(){
-
-		for(int i=1;i<=8;i++){
-			if(head == null){
-				head = new Board(i,1 ,1 );
-				tail = head;
-				System.out.println(i);
-			}else{
-				Board box = new Board(i, 1, 1);
-				this.tail.setNext(box);
-      			box.setPrevious(this.tail);
-      			this.tail = box;
-				  System.out.println(i);
+	public String showBoard() {
+		
+		String out = "";
+		Board current = new Board(0, 0, 0, null);
+		current.setNext(head);
+		for(int i = 1;i<=8;i++){
+			if(i != 1){
+				out += "\n";
+			}
+			for(int j = 1; j<=8;j++){
+				if(current!= null){
+					current = current.getNext();
+					out += " " + current.toString();
+					
+				}
 			}
 		}
+		return out;
+	}
 
+	
+
+
+
+
+	
+	public String  addUserScore(int score, String nickname) {
+
+		//int lastIdx = listNames.size() - 1;
+		//nickname = listNames.get(lastIdx);
+
+		//score = calculateScore();
+
+		return addUserScore(score,nickname,root);
+	}
+
+	/**
+	 * 
+	 * @param score
+	 * @param current
+	 */
+	private String addUserScore(int score,String nickname, User current) {
 		
 
-	}
-	*/
 
+		if(root== null){
+			User newUser = new User(score, nickname);
+			root = newUser;
+			return "Se agrego el puntaje";
+		}else{
 
-
-
-
-
-
-
-
-
-	/* 
-	public void createBoard(){
-		int identificator = 1;
-
-
-		while(identificator<64){
-			
-			if (head == null){
-				this.head = new Board(identificator);
-				this.tail = new Board(identificator);
-				identificator++;
-
-				System.out.println("hola");
+			if(current.getScore()<score){
 				
+				if(current.getRight()==null){
+					User user = new User(score, nickname);
+					current.setRight(user);
+				}else{
+					addUserScore(score, nickname, current.getRight());
+				}
+			}else{
+				
+				if(current.getLeft() == null){
+					User user = new User(score, nickname);
+					current.setLeft(user);
+					
+				}else{
+					addUserScore(score, nickname, current.getLeft());
+				}
 			}
-			else {
-				Board box = new Board(identificator);
-				this.tail.setNext(box);
-				box.setPrevious(this.tail);
-				this.tail = box;
-				identificator++;
+			return "Se agrego el puntaje a la tabla";
+		}
+		
+		
+		
+	}
 
-				System.out.println("xd");
+	
+
+	public ArrayList<User> scoreInOrder() {
+		return scoreInOrder(root);
+	}
+
+	/**
+	 * 
+	 * @param score
+	 */
+	private ArrayList<User> scoreInOrder(User user) {
+		if(user == null){
+            return listScores;
+        }
+
+        scoreInOrder(user.getLeft());
+        listScores.add(user);
+        scoreInOrder(user.getRight());
+        return listScores;
+	}
+	
+
+
+	public String showLeaderBoard(){
+		scoreInOrder();
+		String out = "";
+		int size = listScores.size();
+
+		for(int i = 0; i<size;i++){
+			out += "|Nombre  " + listScores.get(i).getNickname() + " : " + listScores.get(i).getScore() + " |\n" ; 
+		}
+		return out;
+	}
+
+	
+	
+	public Board simulate() {
+		return simulate(null, realFont);
+	}
+
+
+	private Board simulate(Board flag, Board current){
+
+		if(current == realSewer){
+			System.out.println("Felicidades, ha completado el juego");
+			endTime = System.nanoTime();
+			return realSewer;
+		}
+
+		if(current.getPipe().getPipeType() == Type.FONT_PIPE){
+
+			if(current.getAbove().getPipe() != null && current.getAbove().getPipe().getPipeType() != Type.HORIZONTAL_PIPE && current.getAbove().getPipe().getPipeType() != Type.CIRCULAR_PIPE){
+				return simulate(current, current.getAbove());
+			}
+
+			if(current.getUnder().getPipe() != null && current.getUnder().getPipe().getPipeType() != Type.HORIZONTAL_PIPE && current.getUnder().getPipe().getPipeType() != Type.CIRCULAR_PIPE){
+				return simulate(current, current.getUnder());
+			}
+
+			if(current.getPrevious().getPipe() != null && current.getPrevious().getPipe().getPipeType() != Type.VERTICAL_PIPE && current.getPrevious().getPipe().getPipeType() != Type.CIRCULAR_PIPE){
+				return simulate(current, current.getPrevious());
+			}
+
+			if(current.getNext().getPipe() != null && current.getNext().getPipe().getPipeType() != Type.VERTICAL_PIPE && current.getNext().getPipe().getPipeType() != Type.CIRCULAR_PIPE){
+				return simulate(current, current.getNext());
 			}
 		}
-	}
-	*/
-
-
-	
 
 
 
@@ -406,108 +509,25 @@ public class Controller {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	/**
-	 * 
-	 * @param score
-	 * @param current
-	 */
-	private void addScore(User score, User current) {
 		
-		throw new UnsupportedOperationException();
-	}
 
-	/**
-	 * 
-	 * @param goal
-	 */
-	public User searchScore(int goal) {
-		// TODO - implement Controller.searchScore
-		throw new UnsupportedOperationException();
-	}
-
-	/**
-	 * 
-	 * @param current
-	 * @param target
-	 */
-	private User searchScore(User current, int target) {
-		// TODO - implement Controller.searchScore
-		throw new UnsupportedOperationException();
-	}
-
-	/* 
-	public List<Score> showScore() {
-		// TODO - implement Controller.showScore
-		throw new UnsupportedOperationException();
-	}
-	*/
-
-	/**
-	 * 
-	 * @param score
-	 */
-	/* 
-	private List<Score> showScore(Score score) {
-		// TODO - implement Controller.showScore
-		throw new UnsupportedOperationException();
-	}
-	*/
-
-	/**
-	 * 
-	 * @param pipe
-	 * @param row
-	 * @param column
-	 */
-	public void addPipe(Pipe pipe, int row, int column) {
-		// TODO - implement Controller.addPipe
-		throw new UnsupportedOperationException();
-	}
-
-	/**
-	 * 
-	 * @param row
-	 * @param column
-	 */
 	
-
-	public void showBoard() {
-		// TODO - implement Controller.showBoard
-		throw new UnsupportedOperationException();
+		
+		
+		
+		
+		return null;
 	}
 
-	/**
-	 * 
-	 * @param current
-	 */
-	private void showBoard(Board current) {
-		// TODO - implement Controller.showBoard
-		throw new UnsupportedOperationException();
-	}
 
-	/**
-	 * 
-	 * @param board
-	 */
-	public void simulate(Board board) {
-		long endTime = System.nanoTime();
+	public int calculateScore(){
+
+		int time = (int)(endTime - startTime);
+
+		int points = usedPipes * 100 - (60 - time) * 10;
+
+		return points;		
+
 	}
 
 }
