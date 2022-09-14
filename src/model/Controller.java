@@ -194,8 +194,8 @@ public class Controller {
 
 		Board pointer2 = anterior;
 
-		System.out.println(randomNum);
-		System.out.println(randomNum2);
+		//System.out.println(randomNum);
+		//System.out.println(randomNum2);
 
 		for(int i=1;i<=randomNum;i++){
 			for(int j=1;j<=randomNum2;j++){	
@@ -206,16 +206,16 @@ public class Controller {
 				if(i == randomNum && j == randomNum2){
 					pointer.setPipe(font);
 					realFont = pointer;
-					System.out.println(pointer.getIndicator());
+					//System.out.println(pointer.getIndicator());
 				}
 			}
 		}
 
-		System.out.println(pointer.getPipe());
-		System.out.println(pointer.getNext().getPipe());
+		//System.out.println(pointer.getPipe());
+		//System.out.println(pointer.getNext().getPipe());
 
-		System.out.println(randomNum3);
-		System.out.println(randomNum4);
+		//System.out.println(randomNum3);
+		//System.out.println(randomNum4);
 
 		for(int i=1;i<=randomNum3;i++){
 			for(int j=1;j<=randomNum4;j++){	
@@ -226,7 +226,7 @@ public class Controller {
 				if(i == randomNum3 && j == randomNum4){
 					pointer2.setPipe(sewer);
 					realSewer = pointer2;
-					System.out.println(pointer2.getIndicator());
+					//System.out.println(pointer2.getIndicator());
 				}
 			}
 		}
@@ -237,7 +237,7 @@ public class Controller {
 
 
 
-
+	/* 
 	public Board fill(){
 		Board actual = head;
 		return fill(head, head);
@@ -263,6 +263,7 @@ public class Controller {
 		return current;
 		
 	  }
+	  
 
 
 	public void print(){
@@ -276,6 +277,7 @@ public class Controller {
 		System.out.println(current.getIndicator());
 		print(current.getNext());
 	}
+	*/
 
 
 
@@ -291,7 +293,7 @@ public class Controller {
 			
 				if(flag != true){
 					
-					if(node.getIndicator()==indicator){
+					if(node.getIndicator()==indicator && node != realFont && node != realSewer){
 						flag = true;
 						toAddPipe = node;
 						usedPipes++;
@@ -301,8 +303,12 @@ public class Controller {
 
 				}
 			}
-			System.out.println(toAddPipe.getIndicator());
+			//System.out.println(toAddPipe.getIndicator());
+			if(toAddPipe == null){
+				System.out.println("You can not put a pipe on this position");
+			}else{
 			addPipe(pipe, isCircular, toAddPipe);
+			}
 	}
 
 
@@ -336,11 +342,11 @@ public class Controller {
 			
 			if(flag != true){
 
-				if(node.getIndicator()==indicator && node.getPipe() == null){
+				if(node.getIndicator()==indicator && node.getPipe() == null && node == realFont && node == realSewer){
 					System.out.println("There is no pipe to delete");
 				}
 
-				if(node.getIndicator()==indicator && node.getPipe() != null){
+				if(node.getIndicator()==indicator && node.getPipe() != null && node != realFont && node != realSewer){
 					flag = true;
 					node.setPipe(null);
 					System.out.println("The pipe has been deleted");
@@ -350,11 +356,6 @@ public class Controller {
 			}
 		}
 	}
-
-
-	//public Board simulate(){
-		
-	//}
 
 
 
@@ -502,6 +503,7 @@ public class Controller {
 				return simulate(current, current.getNext());
 			}
 		}
+
 
 
 
