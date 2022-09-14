@@ -137,7 +137,7 @@ public class Main {
 
 	public void pipeAction(){
         
-		System.out.println(
+		System.out.println( 
 				"What kind of pipe would you like to put?\n" +
 				"(1) HORIZONTAL (=) \n" +
 				"(2) VERTICAL (||) \n"+
@@ -166,6 +166,7 @@ public class Main {
             if(pipe == 3){
                 cll. addPipe("circular",true,row,column);
             }
+			System.out.println(cll.showBoard());
         }else{
             System.out.println("Invalid value :(");
         }
@@ -174,7 +175,12 @@ public class Main {
 
 	public void simulateGame(){
         
-       
+		boolean ans = cll.simulate();
+       if(ans == false){
+		System.out.println("Hay un error");
+	   }else{
+		System.out.println("Felicidades has ganado");
+	   }
     }
 
     public void register(){

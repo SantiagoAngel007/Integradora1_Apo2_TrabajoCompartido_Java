@@ -9,7 +9,8 @@ public class Controller {
 	private ArrayList<User> listScores;
 	private Board head;
 	private Board tail;
-
+	public Board realFont;
+	public Board realSewer;
 
 	public Controller(){
 		this.listScores = new ArrayList<User>();
@@ -190,7 +191,7 @@ public class Controller {
 		int size = listScores.size();
 
 		for(int i = 0; i<size;i++){
-			out += "| " + listScores.get(i).getNickname() + " : " + listScores.get(i).getScore() + " |"; 
+			out += "| " + listScores.get(i).getNickname() + " : " + listScores.get(i).getScore() + " | \n"; 
 		}
 		return out;
 	}
@@ -239,6 +240,7 @@ public class Controller {
 		}
 		System.out.println(forAdd.getPipeType());
 		board.setPipe(forAdd);
+
 	}
 
 	/**
@@ -251,6 +253,10 @@ public class Controller {
 		throw new UnsupportedOperationException();
 	}
 
+	/**
+	 * 
+	 * @param current
+	 */
 	public String showBoard() {
 		
 		String out = "";
@@ -271,22 +277,96 @@ public class Controller {
 		return out;
 	}
 
-	/**
-	 * 
-	 * @param current
-	 */
-	private void showBoard(Board current) {
-		// TODO - implement Controller.showBoard
-		throw new UnsupportedOperationException();
+	
+
+	public boolean simulate() {
+		return simulate(null, realFont);
 	}
 
-	/**
-	 * 
-	 * @param board
-	 */
-	public String simulate(Board board) {
-		// TODO - implement Controller.simulate
-		throw new UnsupportedOperationException();
-	}
 
+	private boolean simulate(Board flag, Board current){
+
+		if(current == realSewer){
+			System.out.println("Felicidades, ha completado el juego");
+			//endTime = System.nanoTime();
+			return true;
+		}else{
+
+			if(current.getPipe().getPipeType() == Type.FONT_PIPE){
+
+				if(current.getAbove().getPipe() != null && current.getAbove().getPipe().getPipeType() != Type.HORIZONTAL_PIPE && current.getAbove().getPipe().getPipeType() != Type.CIRCULAR_PIPE){
+					return simulate(current, current.getAbove());
+				}
+
+				if(current.getUnder().getPipe() != null && current.getUnder().getPipe().getPipeType() != Type.HORIZONTAL_PIPE && current.getUnder().getPipe().getPipeType() != Type.CIRCULAR_PIPE){
+					return simulate(current, current.getUnder());
+				}
+
+				if(current.getPrevious().getPipe() != null && current.getPrevious().getPipe().getPipeType() != Type.VERTICAL_PIPE && current.getPrevious().getPipe().getPipeType() != Type.CIRCULAR_PIPE){
+					return simulate(current, current.getPrevious());
+				}
+
+				if(current.getNext().getPipe() != null && current.getNext().getPipe().getPipeType() != Type.VERTICAL_PIPE && current.getNext().getPipe().getPipeType() != Type.CIRCULAR_PIPE){
+					return simulate(current, current.getNext());
+				}
+			}
+
+			if(current.getPipe().getPipeType() == Type.VERTICAL_PIPE){
+				
+				if(current.getAbove().getPipe() != null && current.getAbove() != flag && current.getAbove().getPipe().getPipeType() != Type.HORIZONTAL_PIPE){
+					return simulate(current, current.getAbove());
+				}
+
+				if(current.getUnder().getPipe() != null && current.getUnder() != flag && current.getUnder().getPipe().getPipeType() != Type.HORIZONTAL_PIPE){
+					return simulate(current, current.getUnder());
+				}
+			}
+
+			if(current.getPipe().getPipeType() == Type.HORIZONTAL_PIPE){
+
+				if(current.getNext().getPipe() != null && current.getNext() != flag && current.getNext().getPipe().getPipeType() != Type.VERTICAL_PIPE){
+					return  simulate(current,current.getNext());
+				}
+				if(current.getPrevious().getPipe() != null && current.getPrevious() != flag && current.getPrevious().getPipe().getPipeType() != Type.VERTICAL_PIPE){
+					return simulate(current, current.getPrevious());
+				}
+
+			}
+
+			if(current.getPipe().getPipeType() == Type.CIRCULAR_PIPE){
+
+				if(flag == current.getUnder() || flag == current.getAbove()){
+					
+					if(current.getNext().getPipe().getPipeType() != null && current.getPrevious().getPipe().getPipeType() != null ){
+						return false;
+					}else{
+						
+						if(current.getNext().getPipe() != null && current.getNext() != flag && current.getNext().getPipe().getPipeType() != Type.VERTICAL_PIPE && current.getNext().getPipe().getPipeType() != Type.CIRCULAR_PIPE){
+							return  simulate(current,current.getNext());
+						}
+						if(current.getPrevious().getPipe() != null && current.getPrevious() != flag && current.getPrevious().getPipe().getPipeType() != Type.VERTICAL_PIPE && current.getPrevious().getPipe().getPipeType() != Type.CIRCULAR_PIPE){
+							return  simulate(current,current.getPrevious());
+						}
+					}
+				}
+
+				if(flag == current.getNext() || flag == current.getPrevious()){
+					
+					if(current.getAbove().getPipe().getPipeType() != null && current.getUnder().getPipe().getPipeType() != null){
+						return false;
+					}else{
+
+						if(current.getUnder().getPipe() != null && current.getUnder() != flag && current.getUnder().getPipe().getPipeType() != Type.HORIZONTAL_PIPE && current.getUnder().getPipe().getPipeType() != Type.CIRCULAR_PIPE){
+							return  simulate(current,current.getUnder());
+						}
+						if(current.getAbove().getPipe() != null && current.getAbove() != flag && current.getAbove().getPipe().getPipeType() != Type.HORIZONTAL_PIPE && current.getAbove().getPipe().getPipeType() != Type.CIRCULAR_PIPE){
+							return  simulate(current,current.getAbove());
+						}
+
+					}
+				}
+			}
+		}
+		return false;
+	}
 }
