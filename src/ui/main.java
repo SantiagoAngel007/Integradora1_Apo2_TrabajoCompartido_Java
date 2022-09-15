@@ -1,5 +1,7 @@
 package ui;
 import model.Controller;
+import model.User;
+
 import java.util.Scanner;
 //import java.util.concurrent.TimeUnit;
 
@@ -7,6 +9,8 @@ public class Main {
     private Scanner sc;
 
     private Controller cll;
+
+	public static String name = null;
     
     public Main(){
         sc = new Scanner(System.in);
@@ -80,6 +84,7 @@ public class Main {
 			createGame();
 			break;
 		case 2:
+			//register();
 			System.out.println(cll.showLeaderBoard()); 
 			break;
 		
@@ -126,13 +131,11 @@ public class Main {
 
 
     public void createGame(){
-        
-		String name;
 
 		System.out.println("Please input your nickname");
 		name = sc.nextLine();
 
-		cll.addNames(name);
+		//cll.addNames(name);
 
 		cll.startGame();
 
@@ -154,8 +157,13 @@ public class Main {
 		boolean ans = cll.simulate();
        if(ans == false){
 		System.out.println("Hay un error");
+		//sSystem.out.println(cll.calculateScore());
 	   }else{
 		System.out.println("Felicidades has ganado");
+		System.out.println("Su puntaje es de " + cll.calculateScore());
+		cll.addUserScore(cll.calculateScore(),name);
+		name = null;
+		System.out.println(cll.showLeaderBoard());
 	   }
     }
 
@@ -226,12 +234,12 @@ public class Main {
 
 
     public void register(){
-        System.out.println("nombre");
+       	System.out.println("nombre");
         String name = sc.nextLine();
         System.out.println("score");
         int score = sc.nextInt();
-        //System.out.println(cll.addUserScore(score,name));
-       // System.out.println(cll.showLeaderBoard());
+        System.out.println(cll.addUserScore(score,name));
+        System.out.println(cll.showLeaderBoard());
     }
 
 

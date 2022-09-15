@@ -10,7 +10,7 @@ public class Controller {
 
 	public static long endTime;
 
-	public static int usedPipes;
+	public static int usedPipes = 0;
 
 	public Board realFont;
 
@@ -235,54 +235,6 @@ public class Controller {
 
 
 
-
-
-	/* 
-	public Board fill(){
-		Board actual = head;
-		return fill(head, head);
-	  }
-	
-	  private Board fill(Board current, Board actual){
-		
-
-		if(current.getUnder() == null ){
-			for(int i=1;i<=8;i++){
-				actual = actual.getNext();
-			}
-		  return fill(current, actual);
-		}
-
-		if(actual.getNext() != null){
-			actual.setAbove(current);
-			current.setUnder(actual);
-
-			return fill(current.getNext(), actual.getNext());
-		}
-
-		return current;
-		
-	  }
-	  
-
-
-	public void print(){
-		print(head);
-	}
-	
-	private void print(Board current){
-		if(current == null){
-		  return; 
-		}
-		System.out.println(current.getIndicator());
-		print(current.getNext());
-	}
-	*/
-
-
-
-
-
 	  public void addPipe(String pipe, boolean isCircular, int row, int column) {
 		int indicator = ((row-1)*8)+column;
 		Board node = head;
@@ -297,6 +249,7 @@ public class Controller {
 						flag = true;
 						toAddPipe = node;
 						usedPipes++;
+						//endTime = System.nanoTime();
 					}else{
 						node = node.getNext();
 					}
@@ -403,8 +356,6 @@ public class Controller {
 	 */
 	private String addUserScore(int score,String nickname, User current) {
 		
-
-
 		if(root== null){
 			User newUser = new User(score, nickname);
 			root = newUser;
@@ -481,7 +432,8 @@ public class Controller {
 
 		if(current == realSewer){
 			System.out.println("Felicidades, ha completado el juego");
-			//endTime = System.nanoTime();
+			endTime = System.nanoTime();
+			usedPipes = 0;
 			return true;
 		}else{
 
@@ -566,29 +518,19 @@ public class Controller {
 
 
 
-
-
-
-
-
-
-		
-
-	
-		
-		
-		
-		
-	
-
-
 	public int calculateScore(){
 
-		int time = (int)(endTime - startTime);
+		long time = (endTime - startTime);
 
-		int points = usedPipes * 100 - (60 - time) * 10;
+		time = time/1000000000;
 
-		return points;		
+		long points = (usedPipes * 100) - ((60 - time) * 10);
+
+		int pointsInt = (int)(points);
+
+		//System.out.println(pointsInt);
+
+		return pointsInt;		
 
 	}
 
