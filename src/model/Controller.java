@@ -472,37 +472,98 @@ public class Controller {
 
 	
 	
-	public Board simulate() {
+	public boolean simulate() {
 		return simulate(null, realFont);
 	}
 
 
-	private Board simulate(Board flag, Board current){
+	private boolean simulate(Board flag, Board current){
 
 		if(current == realSewer){
 			System.out.println("Felicidades, ha completado el juego");
-			endTime = System.nanoTime();
-			return realSewer;
+			//endTime = System.nanoTime();
+			return true;
+		}else{
+
+			if(current.getPipe().getPipeType() == Type.FONT_PIPE){
+
+				if(current.getAbove() != null && current.getAbove().getPipe() != null && current.getAbove().getPipe().getPipeType() != null && current.getAbove().getPipe().getPipeType() != Type.HORIZONTAL_PIPE && current.getAbove().getPipe().getPipeType() != Type.CIRCULAR_PIPE){
+					return simulate(current, current.getAbove());
+				}
+
+				if(current.getUnder() != null && current.getUnder().getPipe() != null && current.getUnder().getPipe().getPipeType() != null && current.getUnder().getPipe().getPipeType() != Type.HORIZONTAL_PIPE && current.getUnder().getPipe().getPipeType() != Type.CIRCULAR_PIPE){
+					return simulate(current, current.getUnder());
+				}
+
+				if(current.getPrevious() != null && current.getPrevious().getPipe() != null && current.getPrevious().getPipe().getPipeType() != null && current.getPrevious().getPipe().getPipeType() != Type.VERTICAL_PIPE && current.getPrevious().getPipe().getPipeType() != Type.CIRCULAR_PIPE){
+					return simulate(current, current.getPrevious());
+				}
+
+				if(current.getNext() != null && current.getNext().getPipe() != null && current.getNext().getPipe().getPipeType() != null && current.getNext().getPipe().getPipeType() != Type.VERTICAL_PIPE && current.getNext().getPipe().getPipeType() != Type.CIRCULAR_PIPE){
+					return simulate(current, current.getNext());
+				}
+			}
+
+			if(current.getPipe() != null && current.getPipe().getPipeType() != null && current.getPipe().getPipeType() == Type.VERTICAL_PIPE){
+				
+				if(current.getAbove() != null && current.getAbove().getPipe() != null && current.getAbove() != flag && current.getAbove().getPipe().getPipeType() != null && current.getAbove().getPipe().getPipeType() != Type.HORIZONTAL_PIPE){
+					return simulate(current, current.getAbove());
+				}
+
+				if(current.getUnder() != null && current.getUnder().getPipe() != null && current.getUnder() != flag && current.getUnder().getPipe().getPipeType() != null && current.getUnder().getPipe().getPipeType() != Type.HORIZONTAL_PIPE){
+					return simulate(current, current.getUnder());
+				}
+			}
+
+			if(current.getPipe() != null && current.getPipe().getPipeType() != null && current.getPipe().getPipeType() == Type.HORIZONTAL_PIPE){
+
+				if(current.getNext() != null && current.getNext().getPipe() != null && current.getNext().getPipe().getPipeType() != null && current.getNext() != flag && current.getNext().getPipe().getPipeType() != Type.VERTICAL_PIPE){
+					return  simulate(current,current.getNext());
+				}
+				if(current.getPrevious() != null && current.getPrevious().getPipe() != null && current.getPrevious().getPipe().getPipeType() != null && current.getPrevious() != flag && current.getPrevious().getPipe().getPipeType() != Type.VERTICAL_PIPE){
+					return simulate(current, current.getPrevious());
+				}
+
+			}
+
+			if(current.getPipe() != null && current.getPipe().getPipeType() != null && current.getPipe().getPipeType() == Type.CIRCULAR_PIPE){
+
+				if(flag == current.getUnder() || flag == current.getAbove()){
+					
+					if(current.getNext() != null && current.getNext().getPipe() != null && current.getNext().getPipe().getPipeType() != null && current.getPrevious() != null && current.getPrevious().getPipe() != null && current.getPrevious().getPipe().getPipeType() != null ){
+						return false;
+					}else{
+						
+						if(current.getNext() != null && current.getNext().getPipe() != null && current.getNext().getPipe().getPipeType() != null && current.getNext() != flag && current.getNext().getPipe().getPipeType() != Type.VERTICAL_PIPE && current.getNext().getPipe().getPipeType() != Type.CIRCULAR_PIPE){
+							return  simulate(current,current.getNext());
+						}
+						if(current.getPrevious() != null && current.getPrevious().getPipe() != null && current.getPrevious().getPipe().getPipeType() != null && current.getPrevious() != flag && current.getPrevious().getPipe().getPipeType() != Type.VERTICAL_PIPE && current.getPrevious().getPipe().getPipeType() != Type.CIRCULAR_PIPE){
+							return  simulate(current,current.getPrevious());
+						}
+					}
+				}
+
+				if(flag == current.getNext() || flag == current.getPrevious()){
+					
+					if(current.getAbove() != null && current.getAbove().getPipe() != null && current.getAbove().getPipe().getPipeType() != null && current.getUnder() != null && current.getUnder().getPipe() != null && current.getUnder().getPipe().getPipeType() != null){
+						return false;
+					}else{
+
+						if(current.getUnder() != null && current.getUnder().getPipe() != null && current.getUnder().getPipe().getPipeType() != null && current.getUnder() != flag && current.getUnder().getPipe().getPipeType() != Type.HORIZONTAL_PIPE && current.getUnder().getPipe().getPipeType() != Type.CIRCULAR_PIPE){
+							return  simulate(current,current.getUnder());
+						}
+						if(current.getAbove() != null && current.getAbove().getPipe() != null && current.getAbove().getPipe().getPipeType() != null && current.getAbove() != flag && current.getAbove().getPipe().getPipeType() != Type.HORIZONTAL_PIPE && current.getAbove().getPipe().getPipeType() != Type.CIRCULAR_PIPE){
+							return  simulate(current,current.getAbove());
+						}
+
+					}
+				}
+			}
 		}
+		return false;
+	}
 
-		if(current.getPipe().getPipeType() == Type.FONT_PIPE){
 
-			if(current.getAbove().getPipe() != null && current.getAbove().getPipe().getPipeType() != Type.HORIZONTAL_PIPE && current.getAbove().getPipe().getPipeType() != Type.CIRCULAR_PIPE){
-				return simulate(current, current.getAbove());
-			}
-
-			if(current.getUnder().getPipe() != null && current.getUnder().getPipe().getPipeType() != Type.HORIZONTAL_PIPE && current.getUnder().getPipe().getPipeType() != Type.CIRCULAR_PIPE){
-				return simulate(current, current.getUnder());
-			}
-
-			if(current.getPrevious().getPipe() != null && current.getPrevious().getPipe().getPipeType() != Type.VERTICAL_PIPE && current.getPrevious().getPipe().getPipeType() != Type.CIRCULAR_PIPE){
-				return simulate(current, current.getPrevious());
-			}
-
-			if(current.getNext().getPipe() != null && current.getNext().getPipe().getPipeType() != Type.VERTICAL_PIPE && current.getNext().getPipe().getPipeType() != Type.CIRCULAR_PIPE){
-				return simulate(current, current.getNext());
-			}
-		}
 
 
 
@@ -518,8 +579,7 @@ public class Controller {
 		
 		
 		
-		return null;
-	}
+	
 
 
 	public int calculateScore(){

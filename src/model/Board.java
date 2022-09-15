@@ -129,7 +129,7 @@ public class Board {
 			}
 		
 			if(pipe.getPipeType()== Type.VERTICAL_PIPE){
-				out += "[||]";  
+				out += "[|]";  
 			}
 			if(pipe.getPipeType()== Type.CIRCULAR_PIPE){
 				out += "[O]";  

@@ -105,7 +105,7 @@ public class Main {
 			deletePipe();
 			break;
 		case 3:
-			simulate();
+			simulateGame();
 		break;
 		
 		default:
@@ -149,13 +149,15 @@ public class Main {
         
     }
 
-	public void simulate(){
-
-
-		
-
-
-	}
+	public void simulateGame(){
+        
+		boolean ans = cll.simulate();
+       if(ans == false){
+		System.out.println("Hay un error");
+	   }else{
+		System.out.println("Felicidades has ganado");
+	   }
+    }
 
 
     
@@ -165,7 +167,7 @@ public class Main {
 		System.out.println(
 				"What kind of pipe would you like to put?\n" +
 				"(1) HORIZONTAL (=) \n" +
-				"(2) VERTICAL (||) \n"+
+				"(2) VERTICAL (|) \n"+
                 "(3) CIRCULAR (O)\n"   
 				);
 
@@ -173,11 +175,11 @@ public class Main {
         sc.nextLine();
 
         System.out.println(
-            "Put the row of the box you want to switch the pipe:"
+            "Input the value value of the row:"
         );
         int row = sc.nextInt();
         sc.nextLine();
-        System.out.println("now put the column of the box you want to switch:");
+        System.out.println("Input the value value of the column:");
         int column = sc.nextInt();
         if(row<=8 && column <= 8 && pipe<=3){
             if(pipe == 1){
