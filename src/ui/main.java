@@ -1,9 +1,12 @@
 package ui;
 import model.Controller;
 import model.User;
-
 import java.util.Scanner;
-//import java.util.concurrent.TimeUnit;
+
+
+
+
+
 
 public class Main {
     private Scanner sc;
@@ -12,6 +15,10 @@ public class Main {
 
 	public static String name = null;
     
+	
+	/**
+	 * Description : Inicialize the scaner and the contection with controller.
+	 */
     public Main(){
         sc = new Scanner(System.in);
 
@@ -42,26 +49,40 @@ public class Main {
 	}
 
 
-
+	/**
+	 * Description : Display the first menu to start a game, see the scores of the players or leave the game.
+	 */
     public int showMenu() {
 		int option=0;
 
-		System.out.println(
-				"Main menu, please pick an option\n" +
-				"(1) New game \n" +
-				"(2) Score \n"+
-                "(0) Leave\n"   
-				);
-		option= sc.nextInt();
-		sc.nextLine();
+		do{
+			System.out.println(
+					"Main menu, please pick an option\n" +
+					"(1) New game \n" +
+					"(2) Score \n"+
+					"(0) Leave\n"   
+					);
+					option= sc.nextInt();
+					sc.nextLine();
+		
+
+		}while(option != 1 || option != 2 || option != 0);
+
+			
 		return option;
 	}
 
+
+	/**
+	 * Description : Displays the second menu to put a pipe, delete a pipe and simulate the game in the board.
+	 */
 	public int showGameMenu() {
 		int optionGame=0;
 
+		do{
+
 		System.out.println(
-				"Main menu, please pick an option\n" +
+				"Game menu, please pick an option\n" +
 				"(1) Put pipe \n" +
 				"(2) delete pipe \n" +
 				"(3) Simulate \n"+
@@ -69,11 +90,24 @@ public class Main {
 				);
 		optionGame= sc.nextInt();
 		sc.nextLine();
+
+		}while(optionGame != 1 || optionGame != 2 || optionGame != 0);
+
 		return optionGame;
 	}
+
+
+	/**
+	 * Description : 
+	 * @param score
+	 * @return
+	 */
       
 
-
+	/**
+	 * Description : Distribute the tasks by using a switch and complement the method showMenu.
+	 * @param operation The value of the answer of the user to continue the game.
+	 */
     public void executeOperation(int operation) {
 
 		switch(operation) {
@@ -96,7 +130,10 @@ public class Main {
 
 	}
 
-
+	/**
+	 * Description : Distribute the tasks by using a switch and complement the method showGamemenu.
+	 * @param operation The value of the answer of the user to continue the game.
+	 */
 	public void executeOperationInGame(int operation) {
 
 		switch(operation) {
@@ -109,9 +146,9 @@ public class Main {
 		case 2:
 			deletePipe();
 			break;
-		case 3:
-			simulateGame();
-		break;
+		//case 3:
+			//simulateGame();
+		//break;
 		
 		default:
 			System.out.println("Error, wrong option");
@@ -130,6 +167,11 @@ public class Main {
 	}
 
 
+
+	
+	/**
+	 * Description : It gives us the name of the user and inicialized the showGameMenu to start the main game.
+	 */
     public void createGame(){
 
 		System.out.println("Please input your nickname");
@@ -143,28 +185,43 @@ public class Main {
 
 		int optionGame=0;
 
+		boolean respuesta = false;
+
 		do{
 			optionGame = showGameMenu();
-			executeOperationInGame(optionGame);
-			
-		}while (optionGame!=0);
+			if(optionGame == 3){
+				respuesta = simulateGame();
+			}else{
+				executeOperationInGame(optionGame);
+			}
+			//executeOperationInGame(optionGame);
+			System.out.println(respuesta);
+		}while (optionGame !=0 || respuesta != true);
 
         
     }
 
-	public void simulateGame(){
+
+	
+	/**
+	 * Description : Verify if the answer put by the user is the correct one.
+	 * @return bollean
+	 */
+	public boolean simulateGame(){
         
 		boolean ans = cll.simulate();
        if(ans == false){
 		System.out.println("Hay un error");
-		//sSystem.out.println(cll.calculateScore());
 	   }else{
 		System.out.println("Felicidades has ganado");
 		System.out.println("Su puntaje es de " + cll.calculateScore());
 		cll.addUserScore(cll.calculateScore(),name);
 		name = null;
+		System.out.println("");
 		System.out.println(cll.showLeaderBoard());
+		//System.out.println(ans);
 	   }
+	   return ans;
     }
 
 
@@ -183,7 +240,7 @@ public class Main {
         sc.nextLine();
 
         System.out.println(
-            "Input the value value of the row:"
+            "Input the value of the row:"
         );
         int row = sc.nextInt();
         sc.nextLine();
@@ -208,6 +265,11 @@ public class Main {
        
     }
 
+
+	
+	/**
+	 * Description : Let the user to delete a pipe in case that make a mistake
+	 */
 	public void deletePipe(){
 
 		System.out.println("Input the row to delete the pipe");

@@ -38,7 +38,16 @@ public class Controller {
 
 
 
-	
+	/**
+	 * 
+	 * @param score
+	 * @return
+	 */
+
+
+	/**
+	 * Helps to inicialize the time variable and and all the methods to run the game.
+	 */
 	public void startGame(){
 
 		startTime = System.nanoTime();
@@ -60,6 +69,9 @@ public class Controller {
 
 
 
+	/**
+	 * Description : Created a double linked list in a iterative way.
+	 */
 	public void createBoardDouble(){
 
 		int num = 1;
@@ -80,7 +92,7 @@ public class Controller {
 					box.setPrevious(this.tail);
 					this.tail = box;
 					num++;
-					//System.out.println(box.getIndicator());
+					
 				}
 			}
 		}
@@ -89,7 +101,9 @@ public class Controller {
 
 
 	
-	
+	/**
+	 * Description : Transform the previous double linked list into a quadruple linked list.
+	 */
 	public void createBoardCuadra(){
 		
 		Board anterior = new Board(0, 0, 0, null);
@@ -120,39 +134,38 @@ public class Controller {
 				else if(i == 3){
 					actual.setAbove(current);
 					current.setUnder(actual);
-					//System.out.println("Indicador de current under " + (current.getUnder()).getIndicator());
+					
 					current = current.getNext();
-					//System.out.println("Indicador de actual above " + (actual.getAbove()).getIndicator());
+					
 				}else if(i == 4){
 					actual.setAbove(current);
 					current.setUnder(actual);
-					//System.out.println("Indicador de current under " + (current.getUnder()).getIndicator());
+					
 					current = current.getNext();
-					//System.out.println("Indicador de actual above " + (actual.getAbove()).getIndicator());
+					
 				}else if(i == 5){
 					actual.setAbove(current);
 					current.setUnder(actual);
-					//System.out.println("Indicador de current under " + (current.getUnder()).getIndicator());
+					
 					current = current.getNext();
-					//System.out.println("Indicador de actual above " + (actual.getAbove()).getIndicator());
+					
 				}else if(i == 6){
 					actual.setAbove(current);
 					current.setUnder(actual);
-					//System.out.println("Indicador de current under " + (current.getUnder()).getIndicator());
+					
 					current = current.getNext();
-					//System.out.println("Indicador de actual above " + (actual.getAbove()).getIndicator());
+					
 				}else if(i == 7){
 					actual.setAbove(current);
 					current.setUnder(actual);
-					//System.out.println("Indicador de current under " + (current.getUnder()).getIndicator());
+					
 					current = current.getNext();
-					//System.out.println("Indicador de actual above " + (actual.getAbove()).getIndicator());
+					
 				}else if(i == 8 && current.getNext() != null && actual != null){
 					actual.setAbove(current);
 					current.setUnder(actual);
-					//System.out.println("Indicador de current under " + (current.getUnder()).getIndicator());
 					current = current.getNext();
-					//System.out.println("Indicador de actual above " + (actual.getAbove()).getIndicator());
+					
 				}
 				
 			}
@@ -163,7 +176,10 @@ public class Controller {
 
 
 
-
+	/**
+	 * Description : Create the font and the sewer in two different ways; 1) The pipe way 2) The Board way.
+	 * Then ubicate these two in a random position in the board.
+	 */
 	public void ubicateFontSewer(){
 
 		anterior = new Board(0, 0, 0, null);
@@ -194,9 +210,6 @@ public class Controller {
 
 		Board pointer2 = anterior;
 
-		//System.out.println(randomNum);
-		//System.out.println(randomNum2);
-
 		for(int i=1;i<=randomNum;i++){
 			for(int j=1;j<=randomNum2;j++){	
 
@@ -206,16 +219,10 @@ public class Controller {
 				if(i == randomNum && j == randomNum2){
 					pointer.setPipe(font);
 					realFont = pointer;
-					//System.out.println(pointer.getIndicator());
 				}
 			}
 		}
 
-		//System.out.println(pointer.getPipe());
-		//System.out.println(pointer.getNext().getPipe());
-
-		//System.out.println(randomNum3);
-		//System.out.println(randomNum4);
 
 		for(int i=1;i<=randomNum3;i++){
 			for(int j=1;j<=randomNum4;j++){	
@@ -226,7 +233,6 @@ public class Controller {
 				if(i == randomNum3 && j == randomNum4){
 					pointer2.setPipe(sewer);
 					realSewer = pointer2;
-					//System.out.println(pointer2.getIndicator());
 				}
 			}
 		}
@@ -249,14 +255,12 @@ public class Controller {
 						flag = true;
 						toAddPipe = node;
 						usedPipes++;
-						//endTime = System.nanoTime();
 					}else{
 						node = node.getNext();
 					}
 
 				}
 			}
-			//System.out.println(toAddPipe.getIndicator());
 			if(toAddPipe == null){
 				System.out.println("You can not put a pipe on this position");
 			}else{
@@ -286,6 +290,10 @@ public class Controller {
 
 
 
+	/**
+	 * Description : Delete a pipe by using the coords by the rows and the columns
+	 * @param row,column : The inputs of the user to indicate the rows and the columns
+	 */
 	public void deletePipeBoard(int row, int column){
 		int indicator = ((row-1)*8)+column;
 		Board node = head;
@@ -333,27 +341,14 @@ public class Controller {
 		return out;
 	}
 
-	
-
-
 
 
 	
 	public String  addUserScore(int score, String nickname) {
-
-		//int lastIdx = listNames.size() - 1;
-		//nickname = listNames.get(lastIdx);
-
-		//score = calculateScore();
-
 		return addUserScore(score,nickname,root);
 	}
 
-	/**
-	 * 
-	 * @param score
-	 * @param current
-	 */
+	
 	private String addUserScore(int score,String nickname, User current) {
 		
 		if(root== null){
@@ -396,6 +391,7 @@ public class Controller {
 	/**
 	 * 
 	 * @param score
+	 * @return
 	 */
 	private ArrayList<User> scoreInOrder(User user) {
 		if(user == null){
@@ -418,6 +414,7 @@ public class Controller {
 		for(int i = 0; i<size;i++){
 			out += "|Nombre  " + listScores.get(i).getNickname() + " : " + listScores.get(i).getScore() + " |\n" ; 
 		}
+		listScores.clear();
 		return out;
 	}
 
@@ -431,9 +428,20 @@ public class Controller {
 	private boolean simulate(Board flag, Board current){
 
 		if(current == realSewer){
-			System.out.println("Felicidades, ha completado el juego");
 			endTime = System.nanoTime();
 			usedPipes = 0;
+			realFont = null;
+			realSewer = null;
+			head.setNext(null);
+			head.setPrevious(null);
+			head.setUnder(null);
+			head.setAbove(null);
+			tail.setNext(null);
+			tail.setPrevious(null);
+			tail.setUnder(null);
+			tail.setAbove(null);
+			head = null;
+			tail=null;
 			return true;
 		}else{
 
@@ -516,8 +524,11 @@ public class Controller {
 	}
 
 
-
-
+	
+	/**
+	 * Description : Calculate the Score of a game with the actual time, used pipes and a formula.
+	 * @return int as the result of the operation.
+	 */
 	public int calculateScore(){
 
 		long time = (endTime - startTime);
@@ -527,8 +538,6 @@ public class Controller {
 		long points = (usedPipes * 100) - ((60 - time) * 10);
 
 		int pointsInt = (int)(points);
-
-		//System.out.println(pointsInt);
 
 		return pointsInt;		
 
