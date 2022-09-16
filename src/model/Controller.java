@@ -125,9 +125,9 @@ public class Controller {
 	}
 
 	/**
-	 * 
-	 * @param score
-	 * @param current
+	 * This method add the users have played the game with their specified score to a binary tree.
+	 * @param score, nickname, current
+	 * @return This method return a string with a message that confirm the user have been added correctly.
 	 */
 	private String addUserScore(int score,String nickname, User current) {
 		
@@ -169,8 +169,9 @@ public class Controller {
 	}
 
 	/**
-	 * 
-	 * @param score
+	 * This method organize highest to lowest score from the users added in the binary tree in order for then be added to a arraylist
+	 * @param user this param is for get the root for start the search.
+	 * @return This method return a arraylist<User> where we safe the Users with their score in order.
 	 */
 	private ArrayList<User> scoreInOrder(User user) {
 		if(user == null){
@@ -183,8 +184,10 @@ public class Controller {
         return listScores;
 	}
 	
-
-
+	/**
+	 * This method makes the score leaderBoard by Users.
+	 * @return <String>This method return a a String of the leaderBoard.
+	 */
 	public String showLeaderBoard(){
 		scoreInOrder();
 		String out = "";
@@ -196,10 +199,10 @@ public class Controller {
 		return out;
 	}
 	/**
-	 * 
-	 * @param pipe
-	 * @param row
-	 * @param column
+	 * this method add a pipe to a specific position of a board inside the table game
+	 * @param pipe the pipe will be added
+	 * @param row to ubicate the board to put the pipe
+	 * @param column to ubicate the board to put the pipe
 	 */
 	public void addPipe(String pipe, boolean isCircular, int row, int column) {
 		int indicator = ((row-1)*8)+column;
@@ -223,7 +226,12 @@ public class Controller {
 			System.out.println(toAddPipe.getIndicator());
 			addPipe(pipe, isCircular, toAddPipe);
 	}
-
+	/**
+	 * this method specified the pipe type we will add to the board
+	 * @param pipe the pipe will be added
+	 * @param isCircular
+	 * @param Board The space to set the pipe.
+	 */
 	public void addPipe(String pipe,boolean isCircular,Board board){
 		Pipe forAdd = null;
 		if(pipe == "vertical" ){
@@ -254,8 +262,8 @@ public class Controller {
 	}
 
 	/**
-	 * 
-	 * @param current
+	 * This method makes the table game for this one can be show in console for play the game.
+	 * @return This methos return a String of the representatio of the game table.
 	 */
 	public String showBoard() {
 		

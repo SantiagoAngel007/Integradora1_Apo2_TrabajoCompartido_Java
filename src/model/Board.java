@@ -86,6 +86,11 @@ public class Board {
 	public void setPipe(Pipe pipe){
 		this.pipe = pipe;
 	}
+	
+	/**
+	 * This method make a String that represents every board of all the game table.
+	 * @return String of board
+	 */
 	public String toString(){
 		String out = "";
 		
