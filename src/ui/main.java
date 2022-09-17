@@ -55,20 +55,15 @@ public class Main {
     public int showMenu() {
 		int option=0;
 
-		do{
+		
 			System.out.println(
 					"Main menu, please pick an option\n" +
 					"(1) New game \n" +
 					"(2) Score \n"+
 					"(0) Leave\n"   
 					);
-					option= sc.nextInt();
-					sc.nextLine();
-		
-
-		}while(option != 1 || option != 2 || option != 0);
-
-			
+		option= sc.nextInt();
+		sc.nextLine();	
 		return option;
 	}
 
@@ -79,7 +74,6 @@ public class Main {
 	public int showGameMenu() {
 		int optionGame=0;
 
-		do{
 
 		System.out.println(
 				"Game menu, please pick an option\n" +
@@ -90,9 +84,6 @@ public class Main {
 				);
 		optionGame= sc.nextInt();
 		sc.nextLine();
-
-		}while(optionGame != 1 || optionGame != 2 || optionGame != 0);
-
 		return optionGame;
 	}
 

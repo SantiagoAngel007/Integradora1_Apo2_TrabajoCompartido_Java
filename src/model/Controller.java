@@ -6,33 +6,69 @@ import java.util.ArrayList;
 
 public class Controller {
 
+	/**
+	 * Description : Atribute of type long that help us to mesure an instant of time in miliseconds.
+	 * This variable is the first instant to calculate the score.
+	 */
 	public static long startTime;
 
+	/**
+	 * Description : Atribute of type long that help us to mesure an instant of time in miliseconds.
+	 * This variable is the second instant to calculate the score.
+	 */
 	public static long endTime;
 
+	/**
+	 * Description : Variable of type int that counts how many pipes are used in a game.
+	 * Help us to calculate the game score.
+	 */
 	public static int usedPipes = 0;
 
+	/**
+	 * Description : Variable of type Board that helps as pointer of the Font on the board.
+	 */
 	public Board realFont;
 
+	/**
+	 * Description : Variable of type Board that helps as pointer of the Sewer on the board.
+	 */
 	public Board realSewer;
 
+	/**
+	 * Description : ArrayList that help us to implement some methods for the binary searh tree.
+	 */
 	private ArrayList<User> listScores;
 
 	private ArrayList<String> listNames;
 
+	/**
+	 * Description : Variable of type User that help us to know the first object on the binary search tree.
+	 */
 	private User root;
+
+	/**
+	 * Description : Variable of type Board that help us to know the first object of the linked list.
+	 */
 	private Board head;
+
+	/**
+	 * Description : Variable of type Board that help us to know the first object of the linked list.
+	 */
 	private Board tail;
+
+	/**
+	 * Description : Variable of type Board that help us to know the object behind of the head of the linked list.
+	 */
 	private Board anterior;
 	
+
+
 
 	public Controller(){
 
 		this.listScores = new ArrayList<User>();
 
 		this.listNames = new ArrayList<String>();
-
-		listNames.add("Fabio");
 
 	}
 
@@ -46,7 +82,8 @@ public class Controller {
 
 
 	/**
-	 * Helps to inicialize the time variable and and all the methods to run the game.
+	 * Method that help us to inizilize other crucial methods to run the game.
+	 * Besides it inizialize a variable named startTime that capture a instant of time to calculate the score.
 	 */
 	public void startGame(){
 
@@ -70,7 +107,7 @@ public class Controller {
 
 
 	/**
-	 * Description : Created a double linked list in a iterative way.
+	 * Description :Method that creates a double linked list in a iterative way.
 	 */
 	public void createBoardDouble(){
 
@@ -102,7 +139,8 @@ public class Controller {
 
 	
 	/**
-	 * Description : Transform the previous double linked list into a quadruple linked list.
+	 * Description :Method that transform the previous double linked list into a quadruple linked list.
+	 * The variable anterior is used to avoid a error with the conections.
 	 */
 	public void createBoardCuadra(){
 		
@@ -292,7 +330,8 @@ public class Controller {
 
 	/**
 	 * Description : Delete a pipe by using the coords by the rows and the columns
-	 * @param row,column : The inputs of the user to indicate the rows and the columns
+	 * @param row : The inputs of the user to indicate the rows
+	 * @param column : The inputs of the user to indicate the column
 	 */
 	public void deletePipeBoard(int row, int column){
 		int indicator = ((row-1)*8)+column;
